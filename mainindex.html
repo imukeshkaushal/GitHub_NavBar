@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub</title>
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <div id="header"></div>
+    <div id="main"></div>
+</body>
+</html>
+<script type = "module">
+    import header from "./components/index.js";
+    let navbar = document.querySelector("#header");
+    navbar.innerHTML = header();
+
+    let input_box = document.querySelector("#search-input");
+
+    input_box.addEventListener("keypress",() => {
+        getData(event);
+    });
+
+    // link : https://api.github.com/users/imukeshkaushal/repos
+
+    let image = document.getElementById("profile-img");
+    const getData = async (e) => {
+        if(e.code === "Enter") {
+            let input = input_box.value;
+
+            let url = `https://api.github.com/users/${input}/repos`;
+            let res = await fetch(url);
+            let data = await res.json();
+            image.src = data[0].owner.avatar_url;
+
+            console.log(data);
+
+           
+
+
+        }
+        
+    }
+
+    
+</script>
